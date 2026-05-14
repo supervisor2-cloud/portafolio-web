@@ -1,1 +1,512 @@
-dd-portfolio.html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diego González — Consultor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0f1e;
+      --bg2: #111827;
+      --card: #161e30;
+      --accent: #3b82f6;
+      --accent2: #6366f1;
+      --gold: #f59e0b;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --border: #1e2d45;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(10, 15, 30, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-brand {
+      font-weight: 700; font-size: 1.1rem; letter-spacing: 0.02em;
+      color: var(--text);
+    }
+    .nav-brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 6rem 2rem 4rem;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(59,130,246,0.15) 0%, transparent 70%),
+        var(--bg);
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231e2d45' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.3;
+    }
+    .hero-content { position: relative; max-width: 700px; }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(59,130,246,0.12);
+      border: 1px solid rgba(59,130,246,0.3);
+      color: var(--accent);
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 0.35rem 1rem;
+      border-radius: 999px; margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -0.03em; margin-bottom: 1rem;
+    }
+    .hero h1 .name {
+      background: linear-gradient(135deg, #60a5fa 0%, #818cf8 50%, #a78bfa 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 1.15rem; color: var(--muted); max-width: 540px;
+      margin: 0 auto 2.5rem;
+    }
+    .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.75rem; border-radius: 8px;
+      font-size: 0.95rem; font-weight: 600;
+      text-decoration: none; transition: all 0.2s; cursor: pointer; border: none;
+    }
+    .btn-primary {
+      background: var(--accent); color: #fff;
+    }
+    .btn-primary:hover { background: #2563eb; transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--text);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* SECTIONS */
+    section { padding: 5rem 2rem; }
+    .container { max-width: 1080px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1rem;
+    }
+    .section-desc { color: var(--muted); max-width: 560px; font-size: 1rem; }
+
+    /* STATS */
+    .stats {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 3rem 2rem;
+    }
+    .stats-grid {
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 2rem; text-align: center;
+    }
+    .stat-num {
+      font-size: 2.5rem; font-weight: 800; color: var(--accent);
+      letter-spacing: -0.03em;
+    }
+    .stat-label { font-size: 0.85rem; color: var(--muted); margin-top: 0.25rem; }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+    }
+    .about-text p { color: var(--muted); margin-bottom: 1rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+    .tag {
+      background: rgba(59,130,246,0.08);
+      border: 1px solid rgba(59,130,246,0.2);
+      color: #93c5fd; font-size: 0.8rem; font-weight: 500;
+      padding: 0.3rem 0.8rem; border-radius: 6px;
+    }
+    .about-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem;
+    }
+    .about-card .card-name {
+      font-size: 1.4rem; font-weight: 700; margin-bottom: 0.25rem;
+    }
+    .about-card .card-role { color: var(--accent); font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .info-row { display: flex; flex-direction: column; gap: 0.75rem; }
+    .info-item { display: flex; gap: 0.75rem; align-items: flex-start; }
+    .info-icon { font-size: 1rem; margin-top: 0.1rem; }
+    .info-key { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+    .info-val { font-size: 0.9rem; font-weight: 500; }
+
+    /* SERVICES */
+    .services { background: var(--bg2); }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .service-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px; padding: 2rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .service-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .service-icon {
+      width: 48px; height: 48px; border-radius: 10px;
+      background: rgba(59,130,246,0.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 1.25rem;
+    }
+    .service-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .service-card p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .skill-group {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.75rem;
+    }
+    .skill-group h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 1.25rem; color: var(--accent); }
+    .skill-item { margin-bottom: 1rem; }
+    .skill-header { display: flex; justify-content: space-between; margin-bottom: 0.4rem; }
+    .skill-name { font-size: 0.85rem; font-weight: 500; }
+    .skill-pct { font-size: 0.8rem; color: var(--muted); }
+    .skill-bar { height: 5px; background: var(--border); border-radius: 999px; }
+    .skill-fill {
+      height: 100%; border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+
+    /* CONTACT */
+    .contact { background: var(--bg2); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: start; margin-top: 3rem;
+    }
+    .contact-info p { color: var(--muted); margin-bottom: 2rem; }
+    .contact-item {
+      display: flex; gap: 1rem; align-items: center;
+      margin-bottom: 1.25rem;
+    }
+    .contact-item-icon {
+      width: 42px; height: 42px; border-radius: 10px;
+      background: rgba(59,130,246,0.1);
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .contact-item-label { font-size: 0.75rem; color: var(--muted); }
+    .contact-item-val { font-size: 0.95rem; font-weight: 500; }
+    form { display: flex; flex-direction: column; gap: 1rem; }
+    input, textarea {
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--text); border-radius: 8px; padding: 0.75rem 1rem;
+      font-size: 0.9rem; font-family: inherit;
+      transition: border-color 0.2s; resize: vertical;
+    }
+    input:focus, textarea:focus {
+      outline: none; border-color: var(--accent);
+    }
+    input::placeholder, textarea::placeholder { color: var(--muted); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem; text-align: center;
+      color: var(--muted); font-size: 0.85rem;
+    }
+    footer span { color: var(--accent); font-weight: 600; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .hero h1 { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-brand">Diego<span>.</span>González</div>
+    <ul class="nav-links">
+      <li><a href="#sobre-mi">Sobre mí</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#habilidades">Habilidades</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a href="#contacto" class="btn btn-primary" style="padding: 0.5rem 1.25rem; font-size: 0.85rem;">Trabajemos juntos</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">Consultor Profesional</div>
+      <h1>Hola, soy<br><span class="name">Diego González</span></h1>
+      <p class="hero-sub">
+        Transformo desafíos empresariales en soluciones estratégicas. Consultoría especializada para impulsar el crecimiento y la eficiencia de tu organización.
+      </p>
+      <div class="hero-ctas">
+        <a href="#servicios" class="btn btn-primary">Ver mis servicios</a>
+        <a href="#contacto" class="btn btn-outline">Contáctame</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stats-grid">
+      <div>
+        <div class="stat-num">+10</div>
+        <div class="stat-label">Años de experiencia</div>
+      </div>
+      <div>
+        <div class="stat-num">+80</div>
+        <div class="stat-label">Clientes satisfechos</div>
+      </div>
+      <div>
+        <div class="stat-num">+150</div>
+        <div class="stat-label">Proyectos completados</div>
+      </div>
+      <div>
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Tasa de satisfacción</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOBRE MÍ -->
+  <section id="sobre-mi">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text">
+          <div class="section-label">Sobre mí</div>
+          <h2 class="section-title">Consultor con visión estratégica</h2>
+          <p>Soy Diego González, consultor empresarial con más de una década de experiencia ayudando a organizaciones a alcanzar sus objetivos a través de estrategias claras, procesos optimizados y soluciones innovadoras.</p>
+          <p>Mi enfoque combina análisis riguroso con pensamiento creativo para entregar resultados tangibles y sostenibles, adaptados a las necesidades únicas de cada cliente.</p>
+          <div class="tags">
+            <span class="tag">Estrategia Empresarial</span>
+            <span class="tag">Gestión de Proyectos</span>
+            <span class="tag">Transformación Digital</span>
+            <span class="tag">Análisis de Datos</span>
+            <span class="tag">Liderazgo</span>
+            <span class="tag">Innovación</span>
+          </div>
+        </div>
+        <div class="about-card">
+          <div class="card-name">Diego González</div>
+          <div class="card-role">Consultor Independiente</div>
+          <div class="info-row">
+            <div class="info-item">
+              <span class="info-icon">📍</span>
+              <div>
+                <div class="info-key">Ubicación</div>
+                <div class="info-val">Guatemala</div>
+              </div>
+            </div>
+            <div class="info-item">
+              <span class="info-icon">💼</span>
+              <div>
+                <div class="info-key">Disponibilidad</div>
+                <div class="info-val">Proyectos locales e internacionales</div>
+              </div>
+            </div>
+            <div class="info-item">
+              <span class="info-icon">🎓</span>
+              <div>
+                <div class="info-key">Especialidad</div>
+                <div class="info-val">Consultoría Empresarial y Estratégica</div>
+              </div>
+            </div>
+            <div class="info-item">
+              <span class="info-icon">✉️</span>
+              <div>
+                <div class="info-key">Correo</div>
+                <div class="info-val">supervisor2@telasreal.com</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios" class="services">
+    <div class="container">
+      <div class="section-label">Servicios</div>
+      <h2 class="section-title">¿En qué puedo ayudarte?</h2>
+      <p class="section-desc">Ofrezco soluciones integrales adaptadas a las necesidades específicas de cada organización.</p>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">🎯</div>
+          <h3>Consultoría Estratégica</h3>
+          <p>Diseño e implementación de estrategias corporativas para alcanzar objetivos de negocio de manera eficiente y sostenible.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">⚙️</div>
+          <h3>Optimización de Procesos</h3>
+          <p>Diagnóstico y mejora de procesos operativos para reducir costos, eliminar ineficiencias y aumentar la productividad.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🚀</div>
+          <h3>Transformación Digital</h3>
+          <p>Acompañamiento en la adopción de tecnologías y metodologías ágiles para modernizar la operación de tu empresa.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">📊</div>
+          <h3>Análisis e Inteligencia de Negocios</h3>
+          <p>Interpretación de datos para tomar decisiones fundamentadas y anticipar tendencias del mercado con precisión.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🤝</div>
+          <h3>Gestión del Cambio</h3>
+          <p>Facilito transiciones organizacionales complejas minimizando la resistencia y maximizando la adopción del cambio.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">📋</div>
+          <h3>Gestión de Proyectos</h3>
+          <p>Dirección de proyectos desde su concepción hasta la entrega, asegurando cumplimiento de plazos, alcance y presupuesto.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HABILIDADES -->
+  <section id="habilidades">
+    <div class="container">
+      <div class="section-label">Habilidades</div>
+      <h2 class="section-title">Áreas de expertise</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h3>Estrategia y Negocios</h3>
+          <div class="skill-item">
+            <div class="skill-header"><span class="skill-name">Planificación Estratégica</span><span class="skill-pct">95%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span class="skill-name">Análisis Financiero</span><span class="skill-pct">88%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span class="skill-name">Desarrollo de Negocios</span><span class="skill-pct">92%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:92%"></div></div>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Gestión y Liderazgo</h3>
+          <div class="skill-item">
+            <div class="skill-header"><span class="skill-name">Gestión de Proyectos</span><span class="skill-pct">96%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:96%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span class="skill-name">Liderazgo de Equipos</span><span class="skill-pct">90%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span class="skill-name">Negociación</span><span class="skill-pct">87%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:87%"></div></div>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Tecnología y Datos</h3>
+          <div class="skill-item">
+            <div class="skill-header"><span class="skill-name">Transformación Digital</span><span class="skill-pct">85%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span class="skill-name">Análisis de Datos</span><span class="skill-pct">82%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span class="skill-name">Metodologías Ágiles</span><span class="skill-pct">89%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:89%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="contact">
+    <div class="container">
+      <div class="section-label">Contacto</div>
+      <h2 class="section-title">Hablemos de tu proyecto</h2>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <p>¿Tienes un reto empresarial que resolver? Estoy aquí para ayudarte. Contáctame y conversemos sobre cómo puedo aportar valor a tu organización.</p>
+          <div class="contact-item">
+            <div class="contact-item-icon">✉️</div>
+            <div>
+              <div class="contact-item-label">Correo electrónico</div>
+              <div class="contact-item-val">supervisor2@telasreal.com</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📍</div>
+            <div>
+              <div class="contact-item-label">Ubicación</div>
+              <div class="contact-item-val">Guatemala</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">🕐</div>
+            <div>
+              <div class="contact-item-label">Horario de atención</div>
+              <div class="contact-item-val">Lunes a Viernes, 8:00 – 18:00</div>
+            </div>
+          </div>
+        </div>
+        <form onsubmit="event.preventDefault(); alert('¡Mensaje enviado! Me pondré en contacto contigo pronto.');">
+          <input type="text" placeholder="Tu nombre" required />
+          <input type="email" placeholder="Tu correo electrónico" required />
+          <input type="text" placeholder="Asunto" />
+          <textarea rows="5" placeholder="Cuéntame sobre tu proyecto o consulta..." required></textarea>
+          <button type="submit" class="btn btn-primary" style="width:100%; justify-content: center;">Enviar mensaje</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 <span>Diego González</span> — Todos los derechos reservados.</p>
+  </footer>
+
+</body>
+</html>
