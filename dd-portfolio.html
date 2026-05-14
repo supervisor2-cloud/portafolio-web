@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>D&amp;D — Diseñadora Gráfica</title>
+
+  <!-- Google Fonts: Playfair Display para títulos, Inter para cuerpo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       RESET Y VARIABLES GLOBALES
+       ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --color-black:  #0d0d0d;
+      --color-white:  #f5f5f5;
+      --color-accent: #E63946;
+      --color-gray:   #6b6b6b;
+      --color-card:   #1a1a1a;
+
+      --font-title: 'Playfair Display', serif;
+      --font-body:  'Inter', sans-serif;
+
+      --max-width: 1100px;
+      --section-padding: 96px 24px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-black);
+      color: var(--color-white);
+      line-height: 1.6;
+    }
+
+    /* Utilidad: contenedor centrado */
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ============================================================
+       NAVEGACIÓN
+       ============================================================ */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      background-color: rgba(13, 13, 13, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: var(--font-title);
+      font-size: 1.25rem;
+      color: var(--color-white);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-logo span {
+      color: var(--color-accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--color-gray);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--color-accent);
+    }
+
+    /* ============================================================
+       SECCIÓN HERO
+       Pantalla completa con nombre, título y CTA
+       ============================================================ */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      background-color: var(--color-black);
+      /* Líneas diagonales sutiles como fondo decorativo */
+      background-image: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 40px,
+        rgba(230, 57, 70, 0.03) 40px,
+        rgba(230, 57, 70, 0.03) 41px
+      );
+    }
+
+    .hero-content {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 20px;
+    }
+
+    .hero-title {
+      font-family: var(--font-title);
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 700;
+      line-height: 1.05;
+      color: var(--color-white);
+      margin-bottom: 24px;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--color-accent);
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--color-gray);
+      max-width: 480px;
+      margin-bottom: 48px;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      background-color: var(--color-accent);
+      color: var(--color-white);
+      text-decoration: none;
+      padding: 14px 36px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: background-color 0.2s, transform 0.2s;
+    }
+
+    .hero-cta:hover {
+      background-color: #c62835;
+      transform: translateY(-2px);
+    }
+
+    /* ============================================================
+       SECCIÓN SOBRE MÍ
+       Texto a la izquierda, estadísticas a la derecha
+       ============================================================ */
+    #sobre-mi {
+      padding: var(--section-padding);
+      background-color: #111111;
+    }
+
+    .sobre-mi-inner {
+      display: flex;
+      align-items: center;
+      gap: 80px;
+    }
+
+    .sobre-mi-text {
+      flex: 1 1 320px;
+    }
+
+    .section-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: var(--font-title);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 24px;
+      color: var(--color-white);
+    }
+
+    .sobre-mi-text p {
+      color: var(--color-gray);
+      font-size: 1rem;
+      margin-bottom: 16px;
+    }
+
+    .sobre-mi-text p:last-of-type {
+      margin-bottom: 32px;
+    }
+
+    /* Etiquetas de habilidades */
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      list-style: none;
+    }
+
+    .skill-tag {
+      padding: 6px 16px;
+      border: 1px solid rgba(230, 57, 70, 0.4);
+      color: var(--color-white);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    /* Tarjetas de estadísticas */
+    .sobre-mi-stats {
+      flex: 0 0 260px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .stat-item {
+      background-color: var(--color-card);
+      padding: 28px 32px;
+      border-left: 3px solid var(--color-accent);
+    }
+
+    .stat-number {
+      font-family: var(--font-title);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--color-white);
+      line-height: 1;
+    }
+
+    .stat-desc {
+      font-size: 0.85rem;
+      color: var(--color-gray);
+      margin-top: 4px;
+    }
+
+    /* ============================================================
+       SECCIÓN PROYECTOS
+       3 cards en fila usando Flexbox
+       ============================================================ */
+    #proyectos {
+      padding: var(--section-padding);
+      background-color: var(--color-black);
+    }
+
+    .proyectos-header {
+      margin-bottom: 56px;
+    }
+
+    /* Contenedor de cards con Flexbox */
+    .cards-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .card {
+      flex: 1 1 300px;
+      background-color: var(--color-card);
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+    }
+
+    /* Imagen placeholder de la card */
+    .card-image {
+      width: 100%;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-title);
+      font-size: 2.5rem;
+      color: var(--color-white);
+      font-style: italic;
+      letter-spacing: 0.05em;
+    }
+
+    .card:nth-child(1) .card-image { background-color: #1f1f2e; }
+    .card:nth-child(2) .card-image { background-color: #2e1f1f; }
+    .card:nth-child(3) .card-image { background-color: #1f2e20; }
+
+    .card-body {
+      padding: 28px;
+    }
+
+    .card-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      font-family: var(--font-title);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--color-white);
+      margin-bottom: 12px;
+      line-height: 1.25;
+    }
+
+    .card-desc {
+      font-size: 0.9rem;
+      color: var(--color-gray);
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--color-white);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      border-bottom: 1px solid var(--color-accent);
+      padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+
+    .card-link:hover {
+      color: var(--color-accent);
+    }
+
+    .card-link::after {
+      content: '→';
+    }
+
+    /* ============================================================
+       SECCIÓN CONTACTO
+       Formulario simple centrado
+       ============================================================ */
+    #contacto {
+      padding: var(--section-padding);
+      background-color: #111111;
+    }
+
+    .contacto-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .contacto-inner .section-title {
+      margin-bottom: 16px;
+    }
+
+    .contacto-inner p {
+      color: var(--color-gray);
+      margin-bottom: 48px;
+      font-size: 1rem;
+    }
+
+    /* Formulario */
+    form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 6px;
+    }
+
+    label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-gray);
+      text-align: left;
+    }
+
+    input, textarea {
+      background-color: var(--color-card);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--color-white);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      padding: 14px 16px;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: vertical;
+    }
+
+    input:focus, textarea:focus {
+      border-color: var(--color-accent);
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: rgba(107, 107, 107, 0.6);
+    }
+
+    textarea {
+      min-height: 140px;
+    }
+
+    .btn-submit {
+      align-self: flex-start;
+      background-color: var(--color-accent);
+      color: var(--color-white);
+      border: none;
+      padding: 14px 40px;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.2s;
+    }
+
+    .btn-submit:hover {
+      background-color: #c62835;
+      transform: translateY(-2px);
+    }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    footer {
+      background-color: var(--color-black);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 32px 24px;
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-copy {
+      font-size: 0.85rem;
+      color: var(--color-gray);
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-socials a {
+      color: var(--color-gray);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .footer-socials a:hover {
+      color: var(--color-accent);
+    }
+
+    /* ============================================================
+       MEDIA QUERIES — RESPONSIVE
+       ============================================================ */
+
+    /* Tablet: ≤ 768px */
+    @media (max-width: 768px) {
+      :root {
+        --section-padding: 72px 20px;
+      }
+
+      /* Ocultar links de nav en móvil */
+      .nav-links {
+        display: none;
+      }
+
+      /* Sobre mí: columna en lugar de fila */
+      .sobre-mi-inner {
+        flex-direction: column;
+        gap: 48px;
+      }
+
+      .sobre-mi-stats {
+        flex: unset;
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .stat-item {
+        flex: 1 1 140px;
+      }
+
+      /* Cards: columna única */
+      .cards-grid {
+        flex-direction: column;
+      }
+
+      .card {
+        flex: unset;
+      }
+
+      /* Formulario: columna simple */
+      .form-row {
+        flex-direction: column;
+      }
+
+      .btn-submit {
+        align-self: stretch;
+      }
+
+      /* Footer: centrado */
+      .footer-inner {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+    }
+
+    /* Móvil pequeño: ≤ 480px */
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 2.6rem;
+      }
+
+      .sobre-mi-stats {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+       NAVEGACIÓN FIJA
+       ============================================================ -->
+  <nav aria-label="Navegación principal">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">D<span>&amp;</span>D</a>
+      <ul class="nav-links">
+        <li><a href="#sobre-mi">Sobre mí</a></li>
+        <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <!-- ============================================================
+       HERO — Presentación principal
+       ============================================================ -->
+  <section id="hero" aria-labelledby="hero-heading">
+    <div class="hero-content">
+      <span class="hero-eyebrow">Diseñadora Gráfica &amp; Visual</span>
+      <h1 class="hero-title" id="hero-heading">
+        Hola, somos<br /><em>D&amp;D</em>
+      </h1>
+      <p class="hero-subtitle">
+        Creamos identidades visuales que comunican con propósito.
+        Diseño para marcas que quieren dejar huella.
+      </p>
+      <a href="#proyectos" class="hero-cta">Ver proyectos</a>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SOBRE MÍ — Biografía y habilidades
+       ============================================================ -->
+  <section id="sobre-mi" aria-labelledby="sobre-mi-heading">
+    <div class="container">
+      <div class="sobre-mi-inner">
+
+        <div class="sobre-mi-text">
+          <span class="section-label">Sobre nosotros</span>
+          <h2 class="section-title" id="sobre-mi-heading">
+            Diseño con intención,<br />comunico con forma.
+          </h2>
+          <p>
+            D&amp;D es un estudio de diseño gráfico con sede en Bogotá, Colombia.
+            Nos especializamos en branding, tipografía y dirección de arte.
+            Creemos que el buen diseño es invisible: simplemente funciona.
+          </p>
+          <p>
+            Con más de 5 años de experiencia trabajando con startups y agencias,
+            hemos desarrollado un proceso centrado en la investigación y la
+            escucha activa del cliente.
+          </p>
+          <ul class="skills" aria-label="Habilidades">
+            <li class="skill-tag">Identidad de Marca</li>
+            <li class="skill-tag">Tipografía</li>
+            <li class="skill-tag">Dirección de Arte</li>
+            <li class="skill-tag">Packaging</li>
+            <li class="skill-tag">UI Visual</li>
+          </ul>
+        </div>
+
+        <!-- Tarjetas de estadísticas -->
+        <div class="sobre-mi-stats" aria-label="Estadísticas">
+          <div class="stat-item">
+            <div class="stat-number">5+</div>
+            <div class="stat-desc">Años de experiencia</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">40+</div>
+            <div class="stat-desc">Proyectos completados</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">18</div>
+            <div class="stat-desc">Clientes satisfechos</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       PROYECTOS — 3 cards con trabajos destacados
+       ============================================================ -->
+  <section id="proyectos" aria-labelledby="proyectos-heading">
+    <div class="container">
+
+      <header class="proyectos-header">
+        <span class="section-label">Proyectos</span>
+        <h2 class="section-title" id="proyectos-heading">Trabajo selecto</h2>
+      </header>
+
+      <!-- Flexbox: 3 cards que se envuelven en mobile -->
+      <div class="cards-grid">
+
+        <!-- Card 1 -->
+        <article class="card">
+          <div class="card-image" aria-hidden="true">Nova</div>
+          <div class="card-body">
+            <p class="card-tag">Branding</p>
+            <h3 class="card-title">Nova Café — Identidad de Marca</h3>
+            <p class="card-desc">
+              Desarrollo completo de identidad visual para una cadena
+              de cafeterías artesanales. Incluye logo, sistema tipográfico
+              y guía de marca.
+            </p>
+            <a href="#contacto" class="card-link">Ver proyecto</a>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card">
+          <div class="card-image" aria-hidden="true">Raíz</div>
+          <div class="card-body">
+            <p class="card-tag">Packaging</p>
+            <h3 class="card-title">Raíz — Packaging Editorial</h3>
+            <p class="card-desc">
+              Diseño de packaging para una línea de productos orgánicos.
+              Concepto visual basado en ilustraciones botánicas y paleta
+              natural.
+            </p>
+            <a href="#contacto" class="card-link">Ver proyecto</a>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card">
+          <div class="card-image" aria-hidden="true">Eco</div>
+          <div class="card-body">
+            <p class="card-tag">Dirección de Arte</p>
+            <h3 class="card-title">EcoVida — Campaña Visual</h3>
+            <p class="card-desc">
+              Dirección de arte para campaña de comunicación de una ONG
+              ambiental. Desde la estrategia gráfica hasta la producción
+              de piezas digitales e impresas.
+            </p>
+            <a href="#contacto" class="card-link">Ver proyecto</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       CONTACTO — Formulario de contacto
+       ============================================================ -->
+  <section id="contacto" aria-labelledby="contacto-heading">
+    <div class="contacto-inner">
+      <span class="section-label">Contacto</span>
+      <h2 class="section-title" id="contacto-heading">
+        Trabajemos juntos
+      </h2>
+      <p>
+        ¿Tienes un proyecto en mente? Escríbenos y conversemos
+        sobre cómo podemos ayudarte.
+      </p>
+
+      <!-- Formulario sin JavaScript; action apunta a un servicio de backend -->
+      <form action="#" method="POST" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input
+              type="text"
+              id="nombre"
+              name="nombre"
+              placeholder="Tu nombre"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="email">Correo</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="tu@correo.com"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="asunto">Asunto</label>
+          <input
+            type="text"
+            id="asunto"
+            name="asunto"
+            placeholder="¿En qué podemos ayudarte?"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="mensaje">Mensaje</label>
+          <textarea
+            id="mensaje"
+            name="mensaje"
+            placeholder="Cuéntanos sobre tu proyecto..."
+            required
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">Enviar mensaje</button>
+      </form>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer>
+    <div class="footer-inner">
+      <p class="footer-copy">© 2026 D&amp;D. Todos los derechos reservados.</p>
+      <ul class="footer-socials" aria-label="Redes sociales">
+        <li><a href="#" aria-label="Behance">Behance</a></li>
+        <li><a href="#" aria-label="Instagram">Instagram</a></li>
+        <li><a href="#" aria-label="LinkedIn">LinkedIn</a></li>
+      </ul>
+    </div>
+  </footer>
+
+</body>
+</html>
+
+<!--
+=================================================================
+  MEJORAS FUTURAS (3 ideas para cuando avances más)
+=================================================================
+
+1. ANIMACIONES DE ENTRADA CON CSS PURO
+   Usar @keyframes + animation-delay escalonado para que las
+   cards y secciones aparezcan con un fade-in al hacer scroll.
+   (Sin JS se puede lograr con :target o con animation-play-state,
+   aunque tiene limitaciones.)
+
+2. MENÚ HAMBURGUESA EN MÓVIL SIN JS
+   Actualmente los links de nav se ocultan en mobile. Se puede
+   implementar un menú desplegable usando solo el truco del
+   <input type="checkbox"> + <label> + CSS combinador (~),
+   que es una técnica 100% CSS pura.
+
+3. LIGHTBOX / MODAL DE PROYECTOS CON CSS
+   Usando :target pseudo-clase se puede crear un lightbox
+   nativo solo con HTML y CSS para mostrar más detalle de
+   cada proyecto al hacer clic en "Ver proyecto", sin una
+   sola línea de JavaScript.
+=================================================================
+-->
